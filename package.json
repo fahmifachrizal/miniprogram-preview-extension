@@ -3,7 +3,7 @@
   "displayName": "Miniprogram Preview",
   "publisher": "fahmifachrizal",
   "description": "Run your miniprogram service provider's simulator, DevTools and device preview in VS Code",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "engines": {
     "vscode": "^1.75.0"
   },
