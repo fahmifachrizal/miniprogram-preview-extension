@@ -1,0 +1,75 @@
+/* VS Code's theme for the page map (the webview gets --vscode-* variables for the active theme) */
+:root {
+  --edge-navigateTo: var(--vscode-charts-blue, #3794ff);
+  --edge-redirectTo: var(--vscode-charts-orange, #d18616);
+  --edge-switchTab: var(--vscode-charts-green, #89d185);
+  --edge-reLaunch: var(--vscode-charts-purple, #b180d7);
+  --edge-navigateBack: var(--vscode-descriptionForeground, #8b8b8b);
+  --edge-dynamic: var(--vscode-charts-red, #f14c4c);
+}
+html, body, #root { height: 100%; margin: 0; padding: 0; }
+body { font-family: var(--vscode-font-family); font-size: var(--vscode-font-size); color: var(--vscode-foreground); background: var(--vscode-editor-background); }
+.app { height: 100%; display: flex; flex-direction: column; }
+.loading { padding: 16px; color: var(--vscode-descriptionForeground); }
+
+.react-flow {
+  --xy-background-color: var(--vscode-editor-background);
+  --xy-background-pattern-color: var(--vscode-editorIndentGuide-background1, rgba(128, 128, 128, 0.25));
+  --xy-edge-label-background-color: var(--vscode-editor-background);
+  --xy-edge-label-color: var(--vscode-foreground);
+  --xy-controls-button-background-color: var(--vscode-editorWidget-background);
+  --xy-controls-button-background-color-hover: var(--vscode-toolbar-hoverBackground);
+  --xy-controls-button-color: var(--vscode-foreground);
+  --xy-controls-button-border-color: var(--vscode-widget-border, transparent);
+  --xy-minimap-background-color: var(--vscode-editorWidget-background);
+  --xy-minimap-mask-background-color: rgba(0, 0, 0, 0.35);
+  --xy-minimap-node-background-color: var(--vscode-badge-background);
+  flex: 1;
+}
+.react-flow__edge-textbg { fill: var(--vscode-editor-background); }
+
+/* toolbar */
+.toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 6px 10px; border-bottom: 1px solid var(--vscode-panel-border); }
+.toolbar .spacer { flex: 1; }
+.search, .toolbar select { font: inherit; color: var(--vscode-input-foreground); background: var(--vscode-input-background); border: 1px solid var(--vscode-input-border, transparent); border-radius: 2px; padding: 3px 6px; }
+.search { width: 200px; }
+.search:focus, .toolbar select:focus { outline: 1px solid var(--vscode-focusBorder); outline-offset: -1px; }
+.toolbar button { font: inherit; padding: 3px 10px; border: none; border-radius: 2px; cursor: pointer; background: var(--vscode-button-secondaryBackground); color: var(--vscode-button-secondaryForeground); }
+.toolbar button:hover { background: var(--vscode-button-secondaryHoverBackground); }
+.summary { padding: 3px 10px; color: var(--vscode-descriptionForeground); font-size: 11px; }
+
+/* page nodes */
+.page-node { background: var(--vscode-editorWidget-background); border: 1px solid var(--vscode-widget-border, var(--vscode-panel-border)); border-radius: 6px; box-shadow: 0 2px 8px var(--vscode-widget-shadow, rgba(0, 0, 0, 0.3)); overflow: visible; }
+.react-flow__node.selected .page-node { border-color: var(--vscode-focusBorder); }
+.page-node.dimmed { opacity: 0.25; }
+.page-header { display: flex; align-items: center; gap: 6px; padding: 0 10px; border-bottom: 1px solid var(--vscode-widget-border, var(--vscode-panel-border)); cursor: pointer; font-weight: 600; }
+.page-header:hover .page-path { text-decoration: underline; }
+.page-path { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; font-family: var(--vscode-editor-font-family); font-size: 12px; }
+.tag { font-size: 10px; font-weight: normal; padding: 0 5px; border-radius: 8px; background: var(--vscode-badge-background); color: var(--vscode-badge-foreground); }
+.tag.tab { background: var(--edge-switchTab); color: #000; }
+.rows { padding: 4px 0; }
+.row { position: relative; display: flex; align-items: center; gap: 6px; padding: 0 10px; cursor: pointer; font-family: var(--vscode-editor-font-family); font-size: 12px; }
+.row:hover { background: var(--vscode-list-hoverBackground); }
+.row.empty { color: var(--vscode-descriptionForeground); cursor: default; font-family: inherit; font-style: italic; }
+.kind { width: 14px; text-align: center; color: var(--vscode-descriptionForeground); }
+.kind.handler { color: var(--vscode-charts-yellow, #cca700); }
+.kind.lifecycle { color: var(--vscode-charts-blue, #3794ff); }
+.fn-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.row:not(.navigates) .fn-name { color: var(--vscode-descriptionForeground); }
+.badges { margin-left: auto; display: flex; gap: 3px; overflow: hidden; }
+.badge { font-size: 10px; padding: 0 4px; border-radius: 3px; white-space: nowrap; border: 1px solid currentColor; color: var(--edge-navigateTo); }
+.badge.dynamic { border-style: dashed; }
+.handle-out, .handle-in { width: 7px; height: 7px; background: var(--vscode-focusBorder); border: none; }
+.row .handle-out { right: -4px; }
+
+.unknown-node { padding: 8px 14px; border: 1px dashed var(--edge-dynamic); border-radius: 6px; color: var(--edge-dynamic); background: var(--vscode-editorWidget-background); font-size: 12px; }
+
+/* legend */
+.legend { background: var(--vscode-editorWidget-background); border: 1px solid var(--vscode-widget-border, var(--vscode-panel-border)); border-radius: 6px; padding: 6px 8px; font-size: 12px; box-shadow: 0 2px 8px var(--vscode-widget-shadow, rgba(0, 0, 0, 0.3)); max-height: 60vh; overflow-y: auto; }
+.legend-title { font-weight: 600; margin-bottom: 4px; color: var(--vscode-descriptionForeground); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }
+.legend-row { display: flex; align-items: center; gap: 6px; padding: 2px 0; cursor: pointer; white-space: nowrap; }
+.legend-row input { margin: 0; }
+.legend-line { flex: none; }
+.legend-name { font-family: var(--vscode-editor-font-family); }
+.legend-api { color: var(--vscode-descriptionForeground); font-size: 10px; }
+.legend .count { margin-left: auto; padding-left: 8px; color: var(--vscode-descriptionForeground); }

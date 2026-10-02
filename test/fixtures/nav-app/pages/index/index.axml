@@ -1,0 +1,4 @@
+<view>
+  <button onTap="onTapDetail">detail</button>
+  <button catchTap="{{ openList }}">list</button>
+</view>

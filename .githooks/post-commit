@@ -1,0 +1,24 @@
+#!/bin/sh
+# Auto-build and install the extension into VS Code after each commit (runs scripts/deploy.js).
+# Runs in the background so the commit returns right away; progress and errors go to .git/deploy.log.
+root=$(git rev-parse --show-toplevel) || exit 0
+log="$root/.git/deploy.log"
+lock="$root/.git/deploy.lock"
+
+# One deploy at a time; a stale lock (older than 10 min) is cleared
+if [ -d "$lock" ] && [ -z "$(find "$lock" -maxdepth 0 -mmin +10 2>/dev/null)" ]; then
+  echo "$(date): deploy already running, skipping" >> "$log"
+  exit 0
+fi
+rm -rf "$lock" 2>/dev/null
+mkdir "$lock" 2>/dev/null || exit 0
+
+(
+  trap 'rm -rf "$lock" 2>/dev/null' EXIT
+  cd "$root" || exit 0
+  echo "=== post-commit deploy $(date) ===" >> "$log"
+  npm run deploy >> "$log" 2>&1
+) >/dev/null 2>&1 &
+
+echo "miniprogram-preview: building & installing in the background → .git/deploy.log"
+exit 0

@@ -1,0 +1,5 @@
+{
+  "pages": ["pages/index/index", "pages/detail/detail", "pages/list/list", "pages/cart/cart", "pages/profile/index", "pages/ts-page/ts-page"],
+  "subPackages": [{ "root": "sub", "pages": ["order/order"] }],
+  "tabBar": { "items": [{ "pagePath": "pages/index/index", "name": "Home" }, { "pagePath": "pages/cart/cart", "name": "Cart" }] }
+}

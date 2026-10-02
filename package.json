@@ -1,0 +1,282 @@
+{
+  "name": "miniprogram-preview",
+  "displayName": "Miniprogram Preview",
+  "publisher": "fahmifachrizal",
+  "description": "Run your miniprogram service provider's simulator, DevTools and device preview in VS Code",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "workspaceContains:mini.project.json",
+    "workspaceContains:app.json"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "miniprogram.simulator",
+        "title": "Miniprogram: Start Simulator Preview",
+        "icon": "$(device-mobile)",
+        "shortTitle": "Start Simulator"
+      },
+      {
+        "command": "miniprogram.stopSimulator",
+        "title": "Miniprogram: Stop Simulator",
+        "icon": "$(debug-stop)",
+        "shortTitle": "Stop Simulator"
+      },
+      {
+        "command": "miniprogram.debugSimulator",
+        "title": "Miniprogram: Debug Simulator",
+        "icon": "$(debug-alt)",
+        "shortTitle": "Debug Simulator"
+      },
+      {
+        "command": "miniprogram.selectCompileMode",
+        "title": "Miniprogram: Select Compile Mode"
+      },
+      {
+        "command": "miniprogram.qrcode",
+        "title": "Miniprogram: Preview on Device",
+        "icon": "$(radio-tower)",
+        "shortTitle": "Preview on Device"
+      },
+      {
+        "command": "miniprogram.setAppId",
+        "title": "Miniprogram: Set App ID for Device Preview"
+      },
+      {
+        "command": "miniprogram.login",
+        "title": "Miniprogram: Log In (Open Platform or mPaaS)"
+      },
+      {
+        "command": "miniprogram.showMock",
+        "title": "Miniprogram: Show API Mock"
+      },
+      {
+        "command": "miniprogram.importMpaasConfig",
+        "title": "Miniprogram: Add mPaaS Environment (Import Config File)"
+      },
+      {
+        "command": "miniprogram.setupMpaas",
+        "title": "Miniprogram: Set Up mPaaS (Config, Login, Whitelist)"
+      },
+      {
+        "command": "miniprogram.showPageMap",
+        "title": "Miniprogram: Show Page Map",
+        "icon": "$(type-hierarchy)",
+        "shortTitle": "Page Map"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "miniprogram.simulator",
+          "when": "miniprogram.isProject && !miniprogram.simulatorRunning",
+          "group": "navigation"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "miniprogram.simulator",
+          "when": "view == miniprogram.simulator && !miniprogram.simulatorRunning",
+          "group": "navigation@0"
+        },
+        {
+          "command": "miniprogram.debugSimulator",
+          "when": "view == miniprogram.simulator && miniprogram.simulatorRunning",
+          "group": "navigation@1"
+        },
+        {
+          "command": "miniprogram.qrcode",
+          "when": "view == miniprogram.simulator && miniprogram.isProject",
+          "group": "navigation@2"
+        },
+        {
+          "command": "miniprogram.stopSimulator",
+          "when": "view == miniprogram.simulator && miniprogram.simulatorRunning",
+          "group": "navigation@3"
+        },
+        {
+          "command": "miniprogram.showPageMap",
+          "when": "view == miniprogram.simulator && miniprogram.isProject",
+          "group": "navigation@2"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "miniprogram.stopSimulator",
+          "when": "miniprogram.simulatorRunning"
+        },
+        {
+          "command": "miniprogram.debugSimulator",
+          "when": "miniprogram.isProject"
+        },
+        {
+          "command": "miniprogram.selectCompileMode",
+          "when": "miniprogram.isProject"
+        },
+        {
+          "command": "miniprogram.qrcode",
+          "when": "miniprogram.isProject"
+        },
+        {
+          "command": "miniprogram.setAppId",
+          "when": "miniprogram.isProject"
+        },
+        {
+          "command": "miniprogram.setupMpaas",
+          "when": "miniprogram.isProject"
+        },
+        {
+          "command": "miniprogram.showPageMap",
+          "when": "miniprogram.isProject"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "secondarySidebar": [
+        {
+          "id": "miniprogramSimulator",
+          "title": "Mini Program Simulator",
+          "icon": "media/phone.svg"
+        }
+      ],
+      "panel": [
+        {
+          "id": "miniprogramDevtools",
+          "title": "Miniprogram DevTools",
+          "icon": "media/devtools.svg"
+        },
+        {
+          "id": "miniprogramDevicePreview",
+          "title": "Device Preview",
+          "icon": "media/qrcode.svg"
+        },
+        {
+          "id": "miniprogramMock",
+          "title": "API Mock",
+          "icon": "media/mock.svg"
+        }
+      ]
+    },
+    "views": {
+      "miniprogramSimulator": [
+        {
+          "type": "webview",
+          "id": "miniprogram.simulator",
+          "name": "Simulator"
+        }
+      ],
+      "miniprogramDevtools": [
+        {
+          "type": "webview",
+          "id": "miniprogram.devtools",
+          "name": "DevTools"
+        }
+      ],
+      "miniprogramDevicePreview": [
+        {
+          "type": "webview",
+          "id": "miniprogram.devicePreview",
+          "name": "Device Preview"
+        }
+      ],
+      "miniprogramMock": [
+        {
+          "type": "webview",
+          "id": "miniprogram.mock",
+          "name": "API Mock"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Miniprogram Preview",
+      "properties": {
+        "miniprogram.nodePath": {
+          "type": "string",
+          "default": "",
+          "description": "Absolute path to a Node.js binary to run minidev with. Leave empty to use the runtime built into VS Code (no separate Node.js install needed)."
+        },
+        "miniprogram.simulatorUI": {
+          "type": "string",
+          "enum": [
+            "ide",
+            "minidev"
+          ],
+          "enumDescriptions": [
+            "Your miniprogram service provider's IDE simulator UI bundled in vendor/lyra-ui (newer devices incl. iPhone 16, follows VS Code language and theme), with the Miniprogram DevTools panel.",
+            "minidev's own simulator UI, with the Elements/Console/Network inspector."
+          ],
+          "default": "ide",
+          "description": "Which simulator UI to show. Falls back to minidev's if vendor/lyra-ui is missing."
+        },
+        "miniprogram.useIdeAppxNg": {
+          "type": "boolean",
+          "default": true,
+          "description": "Run appx-ng projects on the appx-ng runtime bundled with this extension (vendor/appx-ng), or from your installed miniprogram service provider's IDE if no bundled copy is present, instead of the older one minidev downloads."
+        },
+        "miniprogram.ideAppPath": {
+          "type": "string",
+          "default": "/Applications/小程序开发者工具.app",
+          "description": "Path to the installed miniprogram service provider's IDE. Builds use its compiler (as the IDE does), and its appx-ng runtime when this extension has no bundled copy (vendor/appx-ng). macOS: the .app bundle (e.g. /Applications/小程序开发者工具.app). Windows: the install folder that contains resources\\app\\kits (often under %LOCALAPPDATA%\\Programs). Auto-detected in common locations if this is unset or wrong; leave empty to use minidev's own compiler."
+        },
+        "miniprogram.pageMap.wrappers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "markdownDescription": "Extra navigation wrappers for the Page Map, for ones it can't find in the project (e.g. from an npm package): function names such as `goTo` or `router.push`. Each is treated as `my.navigateTo` with the URL as its first argument (or that argument's `url`). Wrappers defined in the project are found automatically."
+        }
+      }
+    },
+    "typescriptServerPlugins": [
+      {
+        "name": "miniprogram-ts-types",
+        "enableForWorkspaceTypeScriptVersions": true
+      }
+    ]
+  },
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "postinstall": "node scripts/patch-web-sim.js",
+    "build:webview": "esbuild webview/page-map/index.jsx --bundle --minify --format=iife --jsx=automatic --target=chrome114 --define:process.env.NODE_ENV=\\\"production\\\" --outfile=media/page-map.js",
+    "watch:webview": "esbuild webview/page-map/index.jsx --bundle --sourcemap --format=iife --jsx=automatic --target=chrome114 --define:process.env.NODE_ENV=\\\"development\\\" --outfile=media/page-map.js --watch",
+    "vscode:prepublish": "npm run build:webview",
+    "package:public": "npx --yes @vscode/vsce package --ignoreFile .vscodeignore.public",
+    "deploy": "node scripts/deploy.js"
+  },
+  "dependencies": {
+    "@babel/parser": "^7.29.9",
+    "@modelcontextprotocol/sdk": "^1.31.0",
+    "archiver": "^5.3.2",
+    "minidev": "^2.2.5",
+    "miniprogram-ts-types": "file:ts-plugin",
+    "qrcode": "^1.5.4",
+    "superagent": "^6.1.0",
+    "tar": "^6.2.1",
+    "ws": "^8.21.3",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@dagrejs/dagre": "^3.1.1",
+    "@types/vscode": "^1.75.0",
+    "@xyflow/react": "^12.12.0",
+    "esbuild": "^0.28.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "typescript": "^4.9.5"
+  },
+  "extensionPack": [
+    "alipay.minicode"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fahmifachrizal/mp-preview-extension.git"
+  }
+}

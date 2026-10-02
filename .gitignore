@@ -1,0 +1,13 @@
+node_modules/
+*.vsix
+.DS_Store
+
+# Proprietary files copied from an installed miniprogram service provider's IDE (internal use only).
+# Recreate with: node scripts/pull-appx-ng.js && node scripts/pull-lyra-ui.js
+vendor/
+
+# Built from webview/page-map (npm run build:webview)
+media/page-map.js
+media/page-map.css
+FINDING.md
+build-info.json

@@ -1,0 +1,11 @@
+.vscode/**
+.gitignore
+test-*.js
+scripts/**
+FINDING.md
+*.vsix
+webview/**
+test/**
+.vscodeignore.public
+.githooks/**
+docs/**
