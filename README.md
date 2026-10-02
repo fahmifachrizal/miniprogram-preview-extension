@@ -2,7 +2,7 @@
 
 **Build miniprograms without leaving VS Code.** Run the simulator next to your code, mock native APIs, map how your pages connect and send a preview to your phone, all built on the official [`minidev`](https://www.npmjs.com/package/minidev) CLI.
 
-[![Release](https://img.shields.io/github/v/release/fahmifachrizal/mp-preview-extension)](https://github.com/fahmifachrizal/mp-preview-extension/releases)
+[![Release](https://img.shields.io/github/v/release/fahmifachrizal/miniprogram-preview-extension)](https://github.com/fahmifachrizal/miniprogram-preview-extension/releases)
 ![VS Code](https://img.shields.io/badge/VS%20Code-extension-007ACC)
 ![Miniprogram](https://img.shields.io/badge/Mini%20Program-service%20provider-1677FF)
 
@@ -86,9 +86,22 @@ Build a preview and scan its QR code. The code stays in the **Device Preview** p
 - **New Page / New Component** from the Explorer's right-click menu. New pages are added to `app.json` automatically.
 
 ## Installation
-1. Download the latest `.vsix` from [Releases](https://github.com/fahmifachrizal/mp-preview-extension/releases).
-2. In VS Code, open the Command Palette and run **Extensions: Install from VSIX…**.
-3. Pick the downloaded file and reload when prompted.
+This extension isn't on the Marketplace; install it from the `.vsix` file on the [Releases page](https://github.com/fahmifachrizal/miniprogram-preview-extension/releases).
+
+1. **Download** the latest `.vsix` from [Releases](https://github.com/fahmifachrizal/miniprogram-preview-extension/releases) (under **Assets** on the top release).
+2. **Open the Extensions view** in VS Code — `⇧⌘X` (macOS) / `Ctrl+Shift+X` (Windows/Linux), or the puzzle-piece icon in the Activity Bar.
+3. Click the **···** menu at the top of the Extensions view → **Install from VSIX…** (or open the Command Palette with `⇧⌘P` / `Ctrl+Shift+P` and run **Extensions: Install from VSIX…**).
+4. **Select the downloaded file.** VS Code installs it and shows a **Reload** prompt — click it (or run **Developer: Reload Window** from the Command Palette).
+5. **Open a mini program folder** (one with `app.json`). The phone icon appears in the editor title bar once the extension recognizes the project.
+
+**From a terminal instead**, with the `code` CLI on your `PATH`:
+```bash
+code --install-extension path/to/miniprogram-preview-*.vsix
+```
+
+**Updating:** repeat the same steps with a newer `.vsix` — **Install from VSIX…** replaces the installed version. The Extensions view (search "Miniprogram Preview") shows the version currently installed.
+
+**Uninstalling:** Extensions view → **Miniprogram Preview** → the gear icon → **Uninstall**.
 
 ### Requirements
 - **VS Code.** Tested on 1.139; the simulator view uses the secondary side bar.
